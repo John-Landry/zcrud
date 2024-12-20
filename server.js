@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const app = express();
 
 app.get('/', (req, res) => {
@@ -6,9 +7,16 @@ app.get('/', (req, res) => {
 })
 
 app.get('/johnpage', (req, res) => {
-    res.send('johnpage');
+    res.send('john---------- page');
 })
 
-app.listen(4000, () => {
-    console.log('Server is running on port 3000');
-})
+
+mongoose.connect(
+    'mongodb+srv://johnclandry:hDqIrxpChOdvMDKc@cluster0.emu6y.mongodb.net/?retryWrites=true&w=majority'
+)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+        console.log('Error connecting to MongoDB:', error);
+    });
