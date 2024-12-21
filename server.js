@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Product = require('./models/productModels')
+const Product = require('./models/productModels.js')
 const app = express()
 
 app.use(express.json());
@@ -10,13 +10,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/john', (req, res) => {
-    res.send('john---------- page');
+    res.send('john----------page');
 })
 
 app.post('/product', async (req, res) => {
     try {
-        const Product = await Product.create(req.body);
-        res.status(200).json(Product);
+        const product = await Product.create(req.body);
+        res.status(200).json(product);
 
     } catch (error) {
         console.log(error.message);
@@ -24,13 +24,14 @@ app.post('/product', async (req, res) => {
     }
 });
 
+mongoose.set('strictQuery', false);
 mongoose.connect(
     'mongodb+srv://johnclandry:hDqIrxpChOdvMDKc@cluster0.emu6y.mongodb.net/?retryWrites=true&w=majority'
 )
     .then(() => {
         console.log('Connected to MongoDB');
-        app.listen(8000, () => {
-            console.log('Server is running on port 3000');
+        app.listen(8080, () => {
+            console.log('Server is running on port 8080');
         });
     })
     .catch((error) => {
